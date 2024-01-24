@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import { CirclePicker } from "react-color";
 
 const Editor = () => {
     const [height, setHeight] = useState(16);
@@ -6,12 +7,18 @@ const Editor = () => {
     const [hideOptions, setHideOptions] = useState(false);
     const [hideDrawbox, setHideDrawbox] = useState(true);
     const [buttonText, setButtonText] = useState("Start Drawbox");
+    const [color, setColor] = useState("#fff");
 
     const handleButtonClick = () => {
         setHideOptions(!hideOptions);
         setHideDrawbox(!hideDrawbox);
         setButtonText(buttonText === "Start Drawbox" ? "Reset Drawbox" : "Start Drawbox");
     }
+
+    const handleColorChange = (color) => {
+        setColor(color.hex);
+    }
+
     return (
         <div>
             <h1>Editor</h1>            
@@ -31,7 +38,11 @@ const Editor = () => {
             }
 
             <button onClick={handleButtonClick}>{buttonText}</button>
-        </div>
+
+            {hideOptions &&
+                <CirclePicker color={color} onChangeComplete={(color) => {setColor(color.hex)}}/>
+            }
+            </div>
     )}
 
 export default Editor;
