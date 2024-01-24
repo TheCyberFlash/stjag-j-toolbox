@@ -9,7 +9,7 @@ const Row = (width, color) => {
         pixels.push(<Pixel key={i} color={color}/>)
     }
     return (
-        <div>
+        <div className="row">
             {pixels}
         </div>
     )};
