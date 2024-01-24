@@ -21,24 +21,24 @@ const Editor = () => {
     }
 
     return (
-        <div>
+        <div id="editor">
             <h1>Editor</h1>            
 
             {hideDrawbox && 
-            <div>
+            <div id="options">
                 <h2>Choose Panel Dimensions</h2>
-                <div>
+                <div className="option">
                     <input type="number" defaultValue={height} onChange={(e) => {setHeight(e.target.value)}}/>
                     <span>Height</span>
                 </div>
-                <div>
+                <div className="option">
                     <input type="number" defaultValue={width} onChange={(e) => {setWidth(e.target.value)}}/>
                     <span>Width</span>
                 </div>
             </div>
             }
 
-            <button onClick={handleButtonClick}>{buttonText}</button>
+            <button className="button" onClick={handleButtonClick}>{buttonText}</button>
 
             {hideOptions &&
                 <CirclePicker color={color} onChangeComplete={(color) => {setColor(color.hex)}}/>
