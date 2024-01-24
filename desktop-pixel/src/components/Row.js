@@ -1,8 +1,8 @@
 import React from "react";
 import Pixel from "./Pixel";
 
-const Row = (width, color) => {
-
+const Row = (props) => {
+    const { width, color } = props;
     let pixels = [];
 
     for (let i = 0; i < width; i++) {
