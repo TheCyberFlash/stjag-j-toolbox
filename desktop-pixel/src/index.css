@@ -13,3 +13,98 @@ body {
   text-align: center;
   min-width: fit-content;
 }
+
+#drawbox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#pixels {
+  margin-bottom: 2rem;
+}
+
+#editor {
+  border: 1px solid white;
+  border-radius: 0.25rem;
+  padding: 1rem 4rem 2rem 4rem;
+  margin-top: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h1 {
+    margin-bottom: 1.5rem;
+  }
+
+  h2 {
+    margin-bottom: 1rem;
+  }
+
+  #options {
+    display: flex;
+    margin-bottom: 3rem;
+    justify-content: center;
+
+    .option {
+      display: flex;
+      flex-direction: column;
+    }
+
+    input {
+      height: 5rem;
+      width: 5rem;
+      font-size: 2rem;
+      text-align: center;
+      background-color: rgb(1, 73, 67);
+      color: white;
+      border: 1px solid white;
+      border-radius: 0.25rem;
+      margin: 0 1rem 0.5rem 1rem;
+      padding-left: 1rem;
+
+      &:focus {
+        outline: none;
+        border-color:aqua;
+        box-shadow: 0 0 0.5rem aqua;
+      }
+    }
+  }
+
+  .button {
+    font-size: 1.25rem;
+    background-color: cornflowerblue;
+    color: white;
+    padding: 1rem 3rem;
+    border-radius: 0.25rem;
+    text-transform: uppercase;
+    border: 1px solid transparent;
+    transition: background-color 0.2s ease-in-out;
+    margin-bottom: 2rem;
+
+    &:hover {
+      background-color: transparent;
+      border-color: cornflowerblue;
+      cursor: pointer;
+    }
+  }
+
+  .circle-picker {
+    margin-bottom: 1.5rem !important;
+  }
+}
+
+.pixel {
+  width: 1.5rem;
+  height: 1.5rem;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.row {
+  display: flex;
+  width: fit-content;
+}
