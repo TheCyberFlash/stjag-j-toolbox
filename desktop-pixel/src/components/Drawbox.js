@@ -9,8 +9,8 @@ const Drawbox = (width, height, color) => {
     }
     
     return (
-        <div>
-            <div>
+        <div id="drawbox">
+            <div id="pixels">
                 {rows}
             </div>
         </div>
