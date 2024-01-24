@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 
-const Pixel = (color) => {
-
-    const [pixelColor, setPixelColor] = useState(color);
+const Pixel = (props) => {
+    const { color } = props;
+    
+    const [pixelColor, setPixelColor] = useState("#fff");
     const [prevColor, setPrevColor] = useState(pixelColor);
     const [canChange, setCanChange] = useState(true);
 
