@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { CirclePicker } from "react-color";
+import Drawbox from "./Drawbox";
 
 const Editor = () => {
     const [height, setHeight] = useState(16);
@@ -42,6 +43,11 @@ const Editor = () => {
             {hideOptions &&
                 <CirclePicker color={color} onChangeComplete={(color) => {setColor(color.hex)}}/>
             }
+
+            {hideOptions && 
+                <Drawbox height={height} width={width} color={color}/>
+            }
+            
             </div>
     )}
 
