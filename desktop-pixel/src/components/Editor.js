@@ -24,9 +24,9 @@ const Editor = () => {
         <div id="editor">
             <h1>Editor</h1>            
 
+            {hideDrawbox && <h2>Choose Panel Dimensions</h2>}
             {hideDrawbox && 
-            <div id="options">
-                <h2>Choose Panel Dimensions</h2>
+            <div id="options">                
                 <div className="option">
                     <input type="number" defaultValue={height} onChange={(e) => {setHeight(e.target.value)}}/>
                     <span>Height</span>
