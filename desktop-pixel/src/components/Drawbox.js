@@ -5,7 +5,6 @@ const Drawbox = (props) => {
     const { width, height, color } = props;
     let rows = [];
 
-    console.log(height);
     for (let i = 0; i < height; i++) {
         rows.push(<Row key={i} width={width} color={color}/>)
     }
