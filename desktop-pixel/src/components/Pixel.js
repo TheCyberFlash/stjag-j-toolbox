@@ -24,8 +24,12 @@ const Pixel = (color) => {
         setPixelColor(color);
     }
     return (
-        <div style={{ backgroundColor: pixelColor}} onClick={applyColor} onMouseEnter={handleMouseEnter} onMouseLeave={resetColor}>
-
+        <div 
+            className="pixel" 
+            style={{ backgroundColor: pixelColor}} 
+            onClick={applyColor} 
+            onMouseEnter={handleMouseEnter} 
+            onMouseLeave={resetColor}>
         </div>
     )}
 
