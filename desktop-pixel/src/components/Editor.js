@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { CirclePicker, PhotoshopPicker } from "react-color";
+import { CirclePicker, PhotoshopPicker, SketchPicker } from "react-color";
 import Drawbox from "./Drawbox";
 
 const Editor = () => {
@@ -41,8 +41,9 @@ const Editor = () => {
             <button className="button" onClick={handleButtonClick}>{buttonText}</button>
 
             {hideOptions &&
-                // <CirclePicker color={color} onChangeComplete={(color) => {setColor(color.hex)}}/>
-                <PhotoshopPicker color={color} onChangeComplete={(color) => {setColor(color.hex)}}/>
+                <CirclePicker color={color} onChangeComplete={(color) => {setColor(color.hex)}}/>
+                // <PhotoshopPicker color={color} onChangeComplete={(color) => {setColor(color.hex)}}/>
+                // <SketchPicker color={color} onChangeComplete={(color) => {setColor(color.hex)}}/>
             }
 
             {hideOptions && 
