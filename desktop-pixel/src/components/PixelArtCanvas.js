@@ -42,10 +42,11 @@ const PixelArtCanvas = ({ height, width, color }) => {
     };
 
     const handleSaveImage = () => {
+
+        const today = new Date().toISOString().replace(/[-:.]/g, '');
+        const fileName = `${today}JsTExport.png`;
       
-        exportComponentAsPNG(canvasRef, {
-          fileName: "pixel_art_image.png",          
-        });
+        exportComponentAsPNG(canvasRef, { fileName });
       };
       
 
