@@ -3,7 +3,6 @@ import { exportComponentAsPNG } from "react-component-export-image";
 
 const PixelArtCanvas = ({ height, width, color }) => {
     const canvasRef = useRef(null);
-    const smallerCanvasRef = useRef(null);
     const [drawing, setDrawing] = useState(false);
 
     useEffect(() => {
@@ -43,32 +42,9 @@ const PixelArtCanvas = ({ height, width, color }) => {
     };
 
     const handleSaveImage = () => {
-        const originalCanvas = canvasRef.current;
-        const smallerCanvas = smallerCanvasRef.current;
-        const smallerContext = smallerCanvas.getContext("2d");
       
-        smallerCanvas.width = width; 
-        smallerCanvas.height = height; 
-      
-        smallerContext.drawImage(
-          originalCanvas,
-          0,
-          0,
-          originalCanvas.width,
-          originalCanvas.height,
-          0,
-          0,
-          smallerCanvas.width,
-          smallerCanvas.height
-        );
-      
-        exportComponentAsPNG(smallerCanvasRef, {
-          fileName: "pixel_art_image.png",
-          html2CanvasOptions: {
-            width: smallerCanvas.width,
-            height: smallerCanvas.height,
-            backgroundColor: null,
-          },
+        exportComponentAsPNG(canvasRef, {
+          fileName: "pixel_art_image.png",          
         });
       };
       
@@ -84,10 +60,6 @@ const PixelArtCanvas = ({ height, width, color }) => {
                 onMouseUp={endDrawing}
                 onMouseMove={draw}
                 />
-            </div>
-
-            <div>
-                <canvas ref={smallerCanvasRef} style={{ display: "none" }} />
             </div>
 
             <div>
