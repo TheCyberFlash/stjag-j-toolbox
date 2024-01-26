@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { exportComponentAsPNG } from "react-component-export-image";
+import Toolbar from "./Toolbar";
 
 const PixelArtCanvas = ({ height, width, color }) => {
     const canvasRef = useRef(null);
@@ -64,6 +65,8 @@ const PixelArtCanvas = ({ height, width, color }) => {
 
     return (
         <div>
+            <Toolbar/>
+
             <div>
                 <canvas
                 ref={canvasRef}
