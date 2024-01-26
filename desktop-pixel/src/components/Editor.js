@@ -24,7 +24,7 @@ const Editor = () => {
 
     return (
         <div id="editor">
-            <h1>Editor</h1>  
+            <h1>Js Toolbox - Pixel Canvas</h1>  
             <Toolbar/>          
 
             {hideDrawbox && <h2>Choose Panel Dimensions</h2>}
@@ -44,9 +44,9 @@ const Editor = () => {
             <button className="button" onClick={handleButtonClick}>{buttonText}</button>
 
             {hideOptions &&
-                <CirclePicker color={color} onChangeComplete={(color) => {setColor(color.hex)}}/>
-                // <PhotoshopPicker color={color} onChangeComplete={(color) => {setColor(color.hex)}}/>
-                // <SketchPicker color={color} onChangeComplete={(color) => {setColor(color.hex)}}/>
+                <CirclePicker color={color} onChangeComplete={handleColorChange}/>
+                // <PhotoshopPicker color={color} onChangeComplete={handleColorChange}/>
+                // <SketchPicker color={color} onChangeComplete={handleColorChange}/>
             }
 
             {hideOptions && 
