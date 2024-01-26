@@ -1,14 +1,10 @@
 import React, {useState} from "react";
 import { CirclePicker, PhotoshopPicker, SketchPicker } from "react-color";
-import Drawbox from "./Drawbox";
 import PixelArtCanvas from "./PixelArtCanvas";
 
 const Editor = () => {
     const [height, setHeight] = useState(16);
     const [width, setWidth] = useState(16);
-    const [hideOptions, setHideOptions] = useState(false);
-    const [hideDrawbox, setHideDrawbox] = useState(true);
-    const [buttonText, setButtonText] = useState("Start Drawbox");
     const [color, setColor] = useState("#fff");
 
     const handleColorChange = (color) => {
