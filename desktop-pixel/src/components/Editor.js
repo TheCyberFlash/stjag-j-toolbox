@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { CirclePicker, PhotoshopPicker, SketchPicker } from "react-color";
 import Drawbox from "./Drawbox";
+import PixelArtCanvas from "./PixelArtCanvas";
 
 const Editor = () => {
     const [height, setHeight] = useState(16);
@@ -47,7 +48,7 @@ const Editor = () => {
             }
 
             {hideOptions && 
-                <Drawbox height={height} width={width} color={color}/>
+                <PixelArtCanvas height={height} width={width} color={color}/>
             }
             
             </div>
