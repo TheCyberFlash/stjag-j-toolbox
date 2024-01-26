@@ -40,7 +40,7 @@ const PixelArtCanvas = ({ height, width, color }) => {
         if (canvasStateStack.length > 1) {
             const prevState = canvasStateStack.slice(0, -1);
             setCanvasStateStack(prevState);
-            restoreCanvasState(prevState[prevState.length - 1]);
+            restoreCanvasState(prevState[prevState.length - 2]);
         }
     };
 
@@ -48,16 +48,13 @@ const PixelArtCanvas = ({ height, width, color }) => {
         if (currentCanvasState && canvasStateStack.length > 1) {
             const nextState = canvasStateStack.slice(1);
             setCanvasStateStack([currentCanvasState, ...nextState]);
-            restoreCanvasState(nextState[0]);
+            restoreCanvasState(nextState[1]);
         }
     };
 
     const handleReset = () => {
-        if (currentCanvasState && canvasStateStack.length > 1) {
-            const nextState = canvasStateStack.slice(1);
-            setCanvasStateStack([currentCanvasState, ...nextState]);
-            restoreCanvasState(nextState[0]);
-        }
+        setCanvasStateStack([]);
+        restoreCanvasState(canvasStateStack[0]);
     };
 
     const startDrawing = (event) => {
