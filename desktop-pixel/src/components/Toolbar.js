@@ -9,7 +9,7 @@ import {
     faImage // - Export as PNG
 } from "@fortawesome/free-solid-svg-icons";
 
-const Toolbar = () => {
+const Toolbar = ({ onUndo, onRedo, onReset, onExport}) => {
 
     return (
         <div className="toolbar">
@@ -19,16 +19,16 @@ const Toolbar = () => {
             <button className="toolbar-button" id="change-color">
                 <FontAwesomeIcon icon={faPalette} />
             </button>
-            <button className="toolbar-button" id="undo">
+            <button className="toolbar-button" id="undo" onClick={onUndo}>
                 <FontAwesomeIcon icon={faUndo} />
             </button>
-            <button className="toolbar-button" id="redo">
+            <button className="toolbar-button" id="redo" onClick={onRedo}>
                 <FontAwesomeIcon icon={faRedo} />
             </button>
-            <button className="toolbar-button" id="clear-canvas">
+            <button className="toolbar-button" id="clear-canvas" onClick={onReset}>
                 <FontAwesomeIcon icon={faTrash} />
             </button>
-            <button className="toolbar-button" id="export-png">
+            <button className="toolbar-button" id="export-png" onCanPlay={onExport}>
                 <FontAwesomeIcon icon={faImage} />
             </button>
         </div>
