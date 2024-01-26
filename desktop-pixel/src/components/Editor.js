@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { CirclePicker, PhotoshopPicker, SketchPicker } from "react-color";
 import Drawbox from "./Drawbox";
 import PixelArtCanvas from "./PixelArtCanvas";
+import Toolbar from "./Toolbar";
 
 const Editor = () => {
     const [height, setHeight] = useState(16);
@@ -23,7 +24,8 @@ const Editor = () => {
 
     return (
         <div id="editor">
-            <h1>Editor</h1>            
+            <h1>Editor</h1>  
+            <Toolbar/>          
 
             {hideDrawbox && <h2>Choose Panel Dimensions</h2>}
             {hideDrawbox && 
