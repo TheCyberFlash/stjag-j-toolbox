@@ -10,6 +10,13 @@ const Drawbox = (props) => {
     for (let i = 0; i < height; i++) {
         rows.push(<Row key={i} width={width} color={color}/>)
     }
+
+    const handleExport = () => {
+        const today = new Date().toISOString().replace(/[-:.]/g, '');
+        const fileName = `${today}JsTExport.png`;
+
+        exportComponentAsPNG(pixelRef, { fileName });
+    };
     
     return (
         <div id="drawbox">
@@ -17,7 +24,7 @@ const Drawbox = (props) => {
                 {rows}
             </div>
 
-            <button className="button" onClick={() => exportComponentAsPNG(pixelRef)}>Export as PNG</button>
+            <button className="button" onClick={handleExport}>Export as PNG</button>
         </div>
     )}
 
