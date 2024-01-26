@@ -1,0 +1,100 @@
+import React, { useState, useRef, useEffect } from "react";
+import { exportComponentAsPNG } from "react-component-export-image";
+
+const PixelArtCanvas = ({ height, width, color }) => {
+    const canvasRef = useRef(null);
+    const smallerCanvasRef = useRef(null);
+    const [drawing, setDrawing] = useState(false);
+
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        const context = canvas.getContext("2d");
+
+        context.fillStyle = "white";
+        context.fillRect(0, 0, canvas.width, canvas.height);
+    }, [height, width]);
+
+    const startDrawing = (event) => {
+        setDrawing(true);
+        draw(event);
+    };
+
+    const endDrawing = () => {
+        setDrawing(false);
+    };
+
+    const draw = (event) => {
+        if (!drawing) return;
+
+        const canvas = canvasRef.current;
+        const context = canvas.getContext("2d");
+
+        const rect = canvas.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+
+        const cellSize = canvas.width / width;
+
+        const col = Math.floor(x / cellSize);
+        const row = Math.floor(y / cellSize);
+
+        context.fillStyle = color;
+        context.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
+    };
+
+    const handleSaveImage = () => {
+        const originalCanvas = canvasRef.current;
+        const smallerCanvas = smallerCanvasRef.current;
+        const smallerContext = smallerCanvas.getContext("2d");
+      
+        smallerCanvas.width = width; 
+        smallerCanvas.height = height; 
+      
+        smallerContext.drawImage(
+          originalCanvas,
+          0,
+          0,
+          originalCanvas.width,
+          originalCanvas.height,
+          0,
+          0,
+          smallerCanvas.width,
+          smallerCanvas.height
+        );
+      
+        exportComponentAsPNG(smallerCanvasRef, {
+          fileName: "pixel_art_image.png",
+          html2CanvasOptions: {
+            width: smallerCanvas.width,
+            height: smallerCanvas.height,
+            backgroundColor: null,
+          },
+        });
+      };
+      
+
+    return (
+        <div>
+            <div>
+                <canvas
+                ref={canvasRef}
+                width={width * 20}
+                height={height * 20}
+                onMouseDown={startDrawing}
+                onMouseUp={endDrawing}
+                onMouseMove={draw}
+                />
+            </div>
+
+            <div>
+                <canvas ref={smallerCanvasRef} style={{ display: "none" }} />
+            </div>
+
+            <div>
+                <button className="button" onClick={handleSaveImage}>Save Image</button>
+            </div>
+        </div>
+    );
+};
+
+export default PixelArtCanvas;
