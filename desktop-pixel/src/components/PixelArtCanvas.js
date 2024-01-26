@@ -80,10 +80,6 @@ const PixelArtCanvas = ({ height, width, color }) => {
                 onTouchEnd={handleTouchEnd}
                 />
             </div>
-
-            <div>
-                <button className="button" onClick={handleSaveImage}>Save Image</button>
-            </div>
         </div>
     );
 };
