@@ -41,6 +41,18 @@ const PixelArtCanvas = ({ height, width, color }) => {
         context.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
     };
 
+    const handleTouchStart = (event) => {
+        startDrawing(event.touches[0]);
+      };
+    
+      const handleTouchMove = (event) => {
+        draw(event.touches[0]);
+      };
+    
+      const handleTouchEnd = () => {
+        endDrawing();
+      };
+
     const handleSaveImage = () => {
 
         const today = new Date().toISOString().replace(/[-:.]/g, '');
@@ -60,6 +72,9 @@ const PixelArtCanvas = ({ height, width, color }) => {
                 onMouseDown={startDrawing}
                 onMouseUp={endDrawing}
                 onMouseMove={draw}
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
                 />
             </div>
 
