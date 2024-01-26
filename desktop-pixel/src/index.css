@@ -114,19 +114,20 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem;
-  background-color: rgb(1, 73, 67);
   color: white;
 }
 
 .toolbar-button {
-  background-color: #555;
-  color: white;
+  background-color:ghostwhite; 
+  color: rgb(87, 75, 75);
   border: none;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem;
   margin-right: 0.5rem;
   cursor: pointer;
+  border-radius: 7px;
 }
 
 .toolbar-button:hover {
-  background-color: #333;
+  background-color: rgb(87, 75, 75);
+  color: ghostwhite; 
 }
