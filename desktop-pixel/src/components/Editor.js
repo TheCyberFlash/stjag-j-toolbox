@@ -25,34 +25,12 @@ const Editor = () => {
     return (
         <div id="editor">
             <h1>Js Toolbox - Pixel Canvas</h1>  
-            <Toolbar/>          
-
-            {hideDrawbox && <h2>Choose Panel Dimensions</h2>}
-            {hideDrawbox && 
-            <div id="options">                
-                <div className="option">
-                    <input type="number" defaultValue={height} onChange={(e) => {setHeight(e.target.value)}}/>
-                    <span>Height</span>
-                </div>
-                <div className="option">
-                    <input type="number" defaultValue={width} onChange={(e) => {setWidth(e.target.value)}}/>
-                    <span>Width</span>
-                </div>
-            </div>
-            }
-
-            <button className="button" onClick={handleButtonClick}>{buttonText}</button>
-
-            {hideOptions &&
+            <Toolbar/>
                 <CirclePicker color={color} onChangeComplete={handleColorChange}/>
-                // <PhotoshopPicker color={color} onChangeComplete={handleColorChange}/>
-                // <SketchPicker color={color} onChangeComplete={handleColorChange}/>
-            }
+                {/* // <PhotoshopPicker color={color} onChangeComplete={handleColorChange}/>
+                // <SketchPicker color={color} onChangeComplete={handleColorChange}/> */}
 
-            {hideOptions && 
-                <PixelArtCanvas height={height} width={width} color={color}/>
-            }
-            
+                <PixelArtCanvas height={height} width={width} color={color}/>            
             </div>
     )}
 
