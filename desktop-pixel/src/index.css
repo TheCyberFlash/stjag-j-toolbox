@@ -108,3 +108,25 @@ body {
   display: flex;
   width: fit-content;
 }
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  background-color: rgb(1, 73, 67);
+  color: white;
+}
+
+.toolbar-button {
+  background-color: #555;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin-right: 0.5rem;
+  cursor: pointer;
+}
+
+.toolbar-button:hover {
+  background-color: #333;
+}
