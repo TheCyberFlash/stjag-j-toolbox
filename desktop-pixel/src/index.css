@@ -89,10 +89,6 @@ body {
       cursor: pointer;
     }
   }
-
-  .circle-picker {
-    margin-bottom: 1.5rem !important;
-  }
 }
 
 .pixel {
@@ -107,6 +103,13 @@ body {
 .row {
   display: flex;
   width: fit-content;
+}
+
+.color-select {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem !important;
 }
 
 .toolbar {
