@@ -1,182 +1,160 @@
 import React, { useState, useRef, useEffect } from "react";
 import { exportComponentAsPNG } from "react-component-export-image";
 import Toolbar from "./Toolbar";
+import ResizeCanvas from "./ResizeCanvas";
 
 const PixelArtCanvas = ({ height, width, color }) => {
-    const canvasRef = useRef(null);
-    const [drawing, setDrawing] = useState(false);
-    const [canvasStateStack, setCanvasStateStack] = useState([]);
-    const [currentCanvasState, setCurrentCanvasState] = useState(null);
-    const [resizing, setResizing] = useState(false);
-    const [newWidth, setNewWidth] = useState(width);
-    const [newHeight, setNewHeight] = useState(height);
+  const canvasRef = useRef(null);
+  const [drawing, setDrawing] = useState(false);
+  const [canvasStateStack, setCanvasStateStack] = useState([]);
+  const [currentCanvasState, setCurrentCanvasState] = useState(null);
+  const [resizing, setResizing] = useState(false);
 
-    useEffect(() => {
-        const canvas = canvasRef.current;
-        const context = canvas.getContext("2d");
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const context = canvas.getContext("2d");
 
-        context.fillStyle = "white";
-        context.fillRect(0, 0, canvas.width, canvas.height);
-        saveCanvasState();
-    }, [height, width]);
+    context.fillStyle = "white";
+    context.fillRect(0, 0, canvas.width, canvas.height);
+    saveCanvasState();
+  }, [height, width]);
 
-    const saveCanvasState = () => {
-        const canvas = canvasRef.current;
-        const snapshot = canvas.toDataURL("image/png");
-        setCanvasStateStack((prevStack) => [...prevStack, snapshot]);
-        setCurrentCanvasState(snapshot);
+  const saveCanvasState = () => {
+    const canvas = canvasRef.current;
+    const snapshot = canvas.toDataURL("image/png");
+    setCanvasStateStack((prevStack) => [...prevStack, snapshot]);
+    setCurrentCanvasState(snapshot);
+  };
+
+  const restoreCanvasState = (state) => {
+    const canvas = canvasRef.current;
+    const context = canvas.getContext("2d");
+    const img = new Image();
+
+    img.src = state;
+    img.onload = () => {
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      context.drawImage(img, 0, 0);
     };
+  };
 
-    const restoreCanvasState = (state) => {
-        const canvas = canvasRef.current;
-        const context = canvas.getContext("2d");
-        const img = new Image();
+  const handleUndo = () => {
+    if (canvasStateStack.length > 1) {
+      const prevState = canvasStateStack.slice(0, -1);
+      setCanvasStateStack(prevState);
+      restoreCanvasState(prevState[prevState.length - 2]);
+    }
+  };
 
-        img.src = state;
-        img.onload = () => {
-            context.clearRect(0, 0, canvas.width, canvas.height);
-            context.drawImage(img, 0, 0);
-        };
-    };
+  const handleRedo = () => {
+    if (currentCanvasState && canvasStateStack.length > 1) {
+      const nextState = canvasStateStack.slice(1);
+      setCanvasStateStack([currentCanvasState, ...nextState]);
+      restoreCanvasState(nextState[1]);
+    }
+  };
 
-    const handleUndo = () => {
-        if (canvasStateStack.length > 1) {
-            const prevState = canvasStateStack.slice(0, -1);
-            setCanvasStateStack(prevState);
-            restoreCanvasState(prevState[prevState.length - 2]);
-        }
-    };
+  const handleReset = () => {
+    setCanvasStateStack([]);
+    restoreCanvasState(canvasStateStack[0]);
+  };
 
-    const handleRedo = () => {
-        if (currentCanvasState && canvasStateStack.length > 1) {
-            const nextState = canvasStateStack.slice(1);
-            setCanvasStateStack([currentCanvasState, ...nextState]);
-            restoreCanvasState(nextState[1]);
-        }
-    };
+  const handleResize = () => {
+    setResizing(true);
+  };
 
-    const handleReset = () => {
-        setCanvasStateStack([]);
-        restoreCanvasState(canvasStateStack[0]);
-    };
+  const handleResizeSubmit = (newWidth, newHeight) => {
+    setResizing(false);
 
-    const handleResize = () => {
-        setResizing(true);
-    };
+    const canvas = canvasRef.current;
+    canvas.width = newWidth * 20;
+    canvas.height = newHeight * 20;
+    saveCanvasState();
+  };
 
-    const handleResizeSubmit = (event) => {
-        event.preventDefault();
-        setResizing(false);
+  const handleResizeCancel = () => {
+    setResizing(false);
+  };
 
-        const canvas = canvasRef.current;
-        canvas.width = newWidth * 20;
-        canvas.height = newHeight * 20;
-        saveCanvasState();
-    };
+  const startDrawing = (event) => {
+    setDrawing(true);
+    draw(event);
+  };
 
-    const handleResizeCancel = () => {
-        setResizing(false);
-        setNewWidth(width);
-        setNewHeight(height);
-    };
+  const endDrawing = () => {
+    setDrawing(false);
+  };
 
-    const startDrawing = (event) => {
-        setDrawing(true);
-        draw(event);
-    };
+  const draw = (event) => {
+    if (!drawing) return;
 
-    const endDrawing = () => {
-        setDrawing(false);
-    };
+    const canvas = canvasRef.current;
+    const context = canvas.getContext("2d");
 
-    const draw = (event) => {
-        if (!drawing) return;
+    const rect = canvas.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
 
-        const canvas = canvasRef.current;
-        const context = canvas.getContext("2d");
+    const cellSize = canvas.width / width;
 
-        const rect = canvas.getBoundingClientRect();
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
+    const col = Math.floor(x / cellSize);
+    const row = Math.floor(y / cellSize);
 
-        const cellSize = canvas.width / width;
+    context.fillStyle = color;
+    context.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
+  };
 
-        const col = Math.floor(x / cellSize);
-        const row = Math.floor(y / cellSize);
+  const handleTouchStart = (event) => {
+    startDrawing(event.touches[0]);
+  };
 
-        context.fillStyle = color;
-        context.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
-    };
+  const handleTouchMove = (event) => {
+    draw(event.touches[0]);
+  };
 
-    const handleTouchStart = (event) => {
-        startDrawing(event.touches[0]);
-    };
-    
-    const handleTouchMove = (event) => {
-        draw(event.touches[0]);
-    };
-    
-    const handleTouchEnd = () => {
-        endDrawing();
-    };
+  const handleTouchEnd = () => {
+    endDrawing();
+  };
 
-    const handleSaveImage = () => {
+  const handleSaveImage = () => {
+    const today = new Date().toISOString().replace(/[-:.]/g, "");
+    const fileName = `${today}JsTExport.png`;
 
-        const today = new Date().toISOString().replace(/[-:.]/g, '');
-        const fileName = `${today}JsTExport.png`;
-      
-        exportComponentAsPNG(canvasRef, { fileName });
-    };
+    exportComponentAsPNG(canvasRef, { fileName });
+  };
 
-    return (
-        <div>
-            <Toolbar
-                onResize={handleResize}
-                onUndo={handleUndo}
-                onRedo={handleRedo}
-                onReset={handleReset}
-                onExport={handleSaveImage}
-            />
+  return (
+    <div>
+      <Toolbar
+        onResize={handleResize}
+        onUndo={handleUndo}
+        onRedo={handleRedo}
+        onReset={handleReset}
+        onExport={handleSaveImage}
+      />
 
-            <div>
-                <canvas
-                ref={canvasRef}
-                width={width * 20}
-                height={height * 20}
-                onMouseDown={startDrawing}
-                onMouseUp={endDrawing}
-                onMouseMove={draw}
-                onTouchStart={handleTouchStart}
-                onTouchMove={handleTouchMove}
-                onTouchEnd={handleTouchEnd}
-                />
-            </div>
+      <div>
+        <canvas
+          ref={canvasRef}
+          width={width * 20}
+          height={height * 20}
+          onMouseDown={startDrawing}
+          onMouseUp={endDrawing}
+          onMouseMove={draw}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        />
+      </div>
 
-            {resizing && (
-                <div>
-                    <label>
-                        Width:
-                        <input 
-                            type="number" 
-                            value={newWidth}
-                            onChange={(event) => setNewWidth(event.target.value)}
-                        />
-                    </label>
-
-                    <label>
-                        Height:
-                        <input 
-                            type="number" 
-                            value={newHeight}
-                            onChange={(event) => setNewHeight(event.target.value)}
-                        />
-                    </label>
-                    <button onClick={handleResizeSubmit}>Submit</button>
-                    <button onClick={handleResizeCancel}>Cancel</button>    
-                </div>
-                    )}
-        </div>
-    );
+      {resizing && (
+        <ResizeCanvas
+          onCancel={handleResizeCancel}
+          onSubmit={handleResizeSubmit}
+        />
+      )}
+    </div>
+  );
 };
 
 export default PixelArtCanvas;
