@@ -131,3 +131,31 @@ body {
   background-color: rgb(87, 75, 75);
   color: ghostwhite; 
 }
+
+.resize-canvas-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+.resize-canvas-container label,
+.resize-canvas-container input {
+  margin-right: 1rem;
+  width: 3rem;
+  appearance: textfield;
+}
+
+.emoji-button {
+  text-align: right;
+  margin-left: 10px;
+  font-size: 20px;
+  padding: 5px;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  color: white;
+}
