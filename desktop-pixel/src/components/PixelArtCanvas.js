@@ -1,37 +1,37 @@
-import React, { useState, useRef, useEffect } from "react";
-import { exportComponentAsPNG } from "react-component-export-image";
-import Toolbar from "./Toolbar";
-import ResizeCanvas from "./ResizeCanvas";
-import ColorChange from "./ColorChange";
+import React, { useState, useRef, useEffect } from 'react';
+import { exportComponentAsPNG } from 'react-component-export-image';
+import Toolbar from './Toolbar';
+import ResizeCanvas from './ResizeCanvas';
+import ColorChange from './ColorChange';
 
-const PixelArtCanvas = ({ height, width}) => {
+const PixelArtCanvas = ({ height, width }) => {
   const canvasRef = useRef(null);
   const [drawing, setDrawing] = useState(false);
   const [canvasStateStack, setCanvasStateStack] = useState([]);
   const [currentCanvasState, setCurrentCanvasState] = useState(null);
   const [resizing, setResizing] = useState(false);
   const [colorSelect, setColorSelect] = useState(false);
-  const [color, setColor] = useState("#fff");
+  const [color, setColor] = useState('#fff');
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const context = canvas.getContext("2d");
+    const context = canvas.getContext('2d');
 
-    context.fillStyle = "white";
+    context.fillStyle = 'white';
     context.fillRect(0, 0, canvas.width, canvas.height);
     saveCanvasState();
   }, [height, width]);
 
   const saveCanvasState = () => {
     const canvas = canvasRef.current;
-    const snapshot = canvas.toDataURL("image/png");
+    const snapshot = canvas.toDataURL('image/png');
     setCanvasStateStack((prevStack) => [...prevStack, snapshot]);
     setCurrentCanvasState(snapshot);
   };
 
   const restoreCanvasState = (state) => {
     const canvas = canvasRef.current;
-    const context = canvas.getContext("2d");
+    const context = canvas.getContext('2d');
     const img = new Image();
 
     img.src = state;
@@ -81,11 +81,11 @@ const PixelArtCanvas = ({ height, width}) => {
 
   const handleColorSelect = () => {
     setColorSelect(!colorSelect);
-    };
+  };
 
-    const handleColorChange = (color) => {
-        setColor(color.hex);
-    }
+  const handleColorChange = (color) => {
+    setColor(color.hex);
+  };
 
   const startDrawing = (event) => {
     setDrawing(true);
@@ -100,7 +100,7 @@ const PixelArtCanvas = ({ height, width}) => {
     if (!drawing) return;
 
     const canvas = canvasRef.current;
-    const context = canvas.getContext("2d");
+    const context = canvas.getContext('2d');
 
     const rect = canvas.getBoundingClientRect();
     const x = event.clientX - rect.left;
@@ -128,7 +128,7 @@ const PixelArtCanvas = ({ height, width}) => {
   };
 
   const handleSaveImage = () => {
-    const today = new Date().toISOString().replace(/[-:.]/g, "");
+    const today = new Date().toISOString().replace(/[-:.]/g, '');
     const fileName = `${today}JsTExport.png`;
 
     exportComponentAsPNG(canvasRef, { fileName });
@@ -151,9 +151,14 @@ const PixelArtCanvas = ({ height, width}) => {
         />
       )}
 
-        {colorSelect && (
-            <ColorChange color={color} colorSelect={colorSelect} setColorSelect={setColorSelect} handleColorChange={handleColorChange}/>
-        )}
+      {colorSelect && (
+        <ColorChange
+          color={color}
+          colorSelect={colorSelect}
+          setColorSelect={setColorSelect}
+          handleColorChange={handleColorChange}
+        />
+      )}
 
       <div>
         <canvas
@@ -167,7 +172,7 @@ const PixelArtCanvas = ({ height, width}) => {
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         />
-      </div>      
+      </div>
     </div>
   );
 };
