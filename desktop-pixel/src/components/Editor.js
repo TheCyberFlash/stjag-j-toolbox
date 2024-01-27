@@ -6,6 +6,7 @@ const Editor = () => {
     const [height, setHeight] = useState(16);
     const [width, setWidth] = useState(16);
     const [color, setColor] = useState("#fff");
+    const [colorSelect, setColorSelect] = useState("");
 
     const handleColorChange = (color) => {
         setColor(color.hex);
@@ -14,10 +15,13 @@ const Editor = () => {
     return (
         <div id="editor">
             <h1>Js Toolbox - Pixel Canvas</h1>  
-                <CirclePicker color={color} onChangeComplete={handleColorChange}/>
-                {/* // <PhotoshopPicker color={color} onChangeComplete={handleColorChange}/>
-                // <SketchPicker color={color} onChangeComplete={handleColorChange}/> */}
 
+            {colorSelect && (
+                <CirclePicker color={color} onChangeComplete={handleColorChange}/>
+                // <PhotoshopPicker color={color} onChangeComplete={handleColorChange}/>
+                // <SketchPicker color={color} onChangeComplete={handleColorChange}/>
+                )}
+                
                 <PixelArtCanvas height={height} width={width} color={color}/>            
             </div>
     )}
