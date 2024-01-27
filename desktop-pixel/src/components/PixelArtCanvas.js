@@ -60,7 +60,7 @@ const PixelArtCanvas = ({ height, width, color }) => {
   };
 
   const handleResize = () => {
-    setResizing(true);
+    setResizing(!resizing);
   };
 
   const handleResizeSubmit = (newWidth, newHeight) => {
@@ -132,6 +132,12 @@ const PixelArtCanvas = ({ height, width, color }) => {
         onReset={handleReset}
         onExport={handleSaveImage}
       />
+      {resizing && (
+        <ResizeCanvas
+          onCancel={handleResizeCancel}
+          onSubmit={handleResizeSubmit}
+        />
+      )}
 
       <div>
         <canvas
@@ -145,14 +151,7 @@ const PixelArtCanvas = ({ height, width, color }) => {
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         />
-      </div>
-
-      {resizing && (
-        <ResizeCanvas
-          onCancel={handleResizeCancel}
-          onSubmit={handleResizeSubmit}
-        />
-      )}
+      </div>      
     </div>
   );
 };
