@@ -12,7 +12,7 @@ const PixelArtCanvas = () => {
   const [canvasStateStack, setCanvasStateStack] = useState([]);
   const [currentCanvasState, setCurrentCanvasState] = useState(null);
   const [resizing, setResizing] = useState(false);
-  const [colorSelect, setColorSelect] = useState(false);
+  const [colorSelecting, setColorSelecting] = useState(false);
   const [color, setColor] = useState('#fff');
 
   useEffect(() => {
@@ -66,6 +66,10 @@ const PixelArtCanvas = () => {
 
   const handleResize = () => {
     setResizing(!resizing);
+
+    if (colorSelecting) {
+      setColorSelecting(false);
+    }
   };
 
   const handleResizeSubmit = (newWidth, newHeight) => {
@@ -82,7 +86,11 @@ const PixelArtCanvas = () => {
   };
 
   const handleColorSelect = () => {
-    setColorSelect(!colorSelect);
+    setColorSelecting(!colorSelecting);
+
+    if (resizing) {
+      setResizing(false);
+    }
   };
 
   const handleColorChange = (color) => {
@@ -153,11 +161,11 @@ const PixelArtCanvas = () => {
         />
       )}
 
-      {colorSelect && (
+      {colorSelecting && (
         <ColorChange
           color={color}
-          colorSelect={colorSelect}
-          setColorSelect={setColorSelect}
+          colorSelect={colorSelecting}
+          setColorSelect={setColorSelecting}
           handleColorChange={handleColorChange}
         />
       )}
