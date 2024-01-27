@@ -2,13 +2,16 @@ import React, { useState, useRef, useEffect } from "react";
 import { exportComponentAsPNG } from "react-component-export-image";
 import Toolbar from "./Toolbar";
 import ResizeCanvas from "./ResizeCanvas";
+import ColorChange from "./ColorChange";
 
-const PixelArtCanvas = ({ height, width, color, colorSelect, setColorSelect }) => {
+const PixelArtCanvas = ({ height, width}) => {
   const canvasRef = useRef(null);
   const [drawing, setDrawing] = useState(false);
   const [canvasStateStack, setCanvasStateStack] = useState([]);
   const [currentCanvasState, setCurrentCanvasState] = useState(null);
   const [resizing, setResizing] = useState(false);
+  const [colorSelect, setColorSelect] = useState(false);
+  const [color, setColor] = useState("#fff");
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -80,6 +83,10 @@ const PixelArtCanvas = ({ height, width, color, colorSelect, setColorSelect }) =
     setColorSelect(!colorSelect);
     };
 
+    const handleColorChange = (color) => {
+        setColor(color.hex);
+    }
+
   const startDrawing = (event) => {
     setDrawing(true);
     draw(event);
@@ -143,6 +150,10 @@ const PixelArtCanvas = ({ height, width, color, colorSelect, setColorSelect }) =
           onSubmit={handleResizeSubmit}
         />
       )}
+
+        {colorSelect && (
+            <ColorChange color={color} colorSelect={colorSelect} setColorSelect={setColorSelect} handleColorChange={handleColorChange}/>
+        )}
 
       <div>
         <canvas
