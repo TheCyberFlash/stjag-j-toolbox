@@ -3,11 +3,11 @@ import { CirclePicker, PhotoshopPicker, SketchPicker } from "react-color";
 
 const ColorChange = ({ color, colorSelect, setColorSelect, handleColorChange }) => {
     return (
-        <div>
+        <div className="color-select">
             {colorSelect && (
-                <CirclePicker color={color} onChangeComplete={handleColorChange}/>
+                // <CirclePicker color={color} onChangeComplete={handleColorChange}/>
                 // <PhotoshopPicker color={color} onChangeComplete={handleColorChange}/>
-                // <SketchPicker color={color} onChangeComplete={handleColorChange}/>
+                <SketchPicker color={color} onChangeComplete={handleColorChange}/>
             )}
         </div>
     )
