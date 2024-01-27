@@ -14,7 +14,7 @@ const ResizeCanvas = ({ onCancel, onSubmit }) => {
     };
 
     return (
-        <div>
+        <div className="resize-canvas-container">
             <label>
                 Width:
                 <input 
@@ -32,8 +32,8 @@ const ResizeCanvas = ({ onCancel, onSubmit }) => {
                     onChange={(event) => setNewHeight(event.target.value)}
                 />
             </label>
-            <button onClick={handleResizeSubmit}>Submit</button>
-            <button onClick={handleResizeCancel}>Cancel</button>    
+            <button onClick={handleResizeSubmit} className="emoji-button">✅</button>
+            <button onClick={handleResizeCancel} className="emoji-button">❌</button>    
         </div>
     )
 };
