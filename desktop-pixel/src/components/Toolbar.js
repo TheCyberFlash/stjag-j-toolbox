@@ -9,14 +9,14 @@ import {
     faImage // - Export as PNG
 } from "@fortawesome/free-solid-svg-icons";
 
-const Toolbar = ({ onResize, onUndo, onRedo, onReset, onExport}) => {
+const Toolbar = ({ onResize, onColorSelect, onUndo, onRedo, onReset, onExport}) => {
 
     return (
         <div className="toolbar">
             <button className="toolbar-button" id="resize-canvas" onClick={onResize}>
                 <FontAwesomeIcon icon={faExpand} />
             </button>
-            <button className="toolbar-button" id="change-color">
+            <button className="toolbar-button" id="change-color" onClick={onColorSelect}>
                 <FontAwesomeIcon icon={faPalette} />
             </button>
             <button className="toolbar-button" id="undo" onClick={onUndo}>
