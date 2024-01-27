@@ -4,8 +4,10 @@ import Toolbar from './Toolbar';
 import ResizeCanvas from './ResizeCanvas';
 import ColorChange from './ColorChange';
 
-const PixelArtCanvas = ({ height, width }) => {
+const PixelArtCanvas = () => {
   const canvasRef = useRef(null);
+  const [width, setWidth] = useState(16);
+  const [height, setHeight] = useState(16);
   const [drawing, setDrawing] = useState(false);
   const [canvasStateStack, setCanvasStateStack] = useState([]);
   const [currentCanvasState, setCurrentCanvasState] = useState(null);
