@@ -7,6 +7,9 @@ const PixelArtCanvas = ({ height, width, color }) => {
     const [drawing, setDrawing] = useState(false);
     const [canvasStateStack, setCanvasStateStack] = useState([]);
     const [currentCanvasState, setCurrentCanvasState] = useState(null);
+    const [resizing, setResizing] = useState(false);
+    const [newWidth, setNewWidth] = useState(width);
+    const [newHeight, setNewHeight] = useState(height);
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -55,6 +58,26 @@ const PixelArtCanvas = ({ height, width, color }) => {
     const handleReset = () => {
         setCanvasStateStack([]);
         restoreCanvasState(canvasStateStack[0]);
+    };
+
+    const handleResize = () => {
+        setResizing(true);
+    };
+
+    const handleResizeSubmit = (event) => {
+        event.preventDefault();
+        setResizing(false);
+
+        const canvas = canvasRef.current;
+        canvas.width = newWidth * 20;
+        canvas.height = newHeight * 20;
+        saveCanvasState();
+    };
+
+    const handleResizeCancel = () => {
+        setResizing(false);
+        setNewWidth(width);
+        setNewHeight(height);
     };
 
     const startDrawing = (event) => {
@@ -108,6 +131,7 @@ const PixelArtCanvas = ({ height, width, color }) => {
     return (
         <div>
             <Toolbar
+                onResize={handleResize}
                 onUndo={handleUndo}
                 onRedo={handleRedo}
                 onReset={handleReset}
@@ -127,6 +151,30 @@ const PixelArtCanvas = ({ height, width, color }) => {
                 onTouchEnd={handleTouchEnd}
                 />
             </div>
+
+            {resizing && (
+                <div>
+                    <label>
+                        Width:
+                        <input 
+                            type="number" 
+                            value={newWidth}
+                            onChange={(event) => setNewWidth(event.target.value)}
+                        />
+                    </label>
+
+                    <label>
+                        Height:
+                        <input 
+                            type="number" 
+                            value={newHeight}
+                            onChange={(event) => setNewHeight(event.target.value)}
+                        />
+                    </label>
+                    <button onClick={handleResizeSubmit}>Submit</button>
+                    <button onClick={handleResizeCancel}>Cancel</button>    
+                </div>
+                    )}
         </div>
     );
 };
