@@ -16,7 +16,7 @@ const ResizeCanvas = ({ onCancel, onSubmit }) => {
     return (
         <div className="resize-canvas-container">
             <label>
-                Width:
+                W
                 <input 
                     type="number" 
                     value={newWidth}
@@ -25,7 +25,7 @@ const ResizeCanvas = ({ onCancel, onSubmit }) => {
             </label>
 
             <label>
-                Height:
+                H
                 <input 
                     type="number" 
                     value={newHeight}
