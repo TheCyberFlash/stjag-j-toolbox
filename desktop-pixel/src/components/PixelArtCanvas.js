@@ -3,7 +3,7 @@ import { exportComponentAsPNG } from "react-component-export-image";
 import Toolbar from "./Toolbar";
 import ResizeCanvas from "./ResizeCanvas";
 
-const PixelArtCanvas = ({ height, width, color }) => {
+const PixelArtCanvas = ({ height, width, color, colorSelect, setColorSelect }) => {
   const canvasRef = useRef(null);
   const [drawing, setDrawing] = useState(false);
   const [canvasStateStack, setCanvasStateStack] = useState([]);
@@ -76,6 +76,10 @@ const PixelArtCanvas = ({ height, width, color }) => {
     setResizing(false);
   };
 
+  const handleColorSelect = () => {
+    setColorSelect(!colorSelect);
+    };
+
   const startDrawing = (event) => {
     setDrawing(true);
     draw(event);
@@ -127,6 +131,7 @@ const PixelArtCanvas = ({ height, width, color }) => {
     <div>
       <Toolbar
         onResize={handleResize}
+        onColorSelect={handleColorSelect}
         onUndo={handleUndo}
         onRedo={handleRedo}
         onReset={handleReset}
