@@ -9,11 +9,13 @@ const PixelArtCanvas = () => {
   const [width, setWidth] = useState(16);
   const [height, setHeight] = useState(16);
   const [drawing, setDrawing] = useState(false);
-  const [canvasStateStack, setCanvasStateStack] = useState([]);
   const [currentCanvasState, setCurrentCanvasState] = useState(null);
   const [resizing, setResizing] = useState(false);
   const [colorSelecting, setColorSelecting] = useState(false);
   const [color, setColor] = useState('#FF0000');
+
+  const [canvasStateStack, setCanvasStateStack] = useState([]);
+  const [currentStateIndex, setCurrentStateIndex] = useState(-1);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -26,43 +28,57 @@ const PixelArtCanvas = () => {
 
   const saveCanvasState = () => {
     const canvas = canvasRef.current;
-    const snapshot = canvas.toDataURL('image/png');
+    const context = canvas.getContext('2d');
+    const cellSize = canvas.width / width;
 
-    const newStack = canvasStateStack.slice(0, currentCanvasState + 1);
+    const newState = Array.from({ length: height }, () =>
+      Array.from({ length: width }, () => 'rgba(0, 0, 0, 0)'),
+    );
 
-    setCanvasStateStack([...newStack, snapshot]);
-    setCurrentCanvasState(newStack.length);
+    for (let row = 0; row < height; row++) {
+      for (let col = 0; col < width; col++) {
+        const x = col * cellSize;
+        const y = row * cellSize;
+        const imageData = context.getImageData(x, y, cellSize, cellSize).data;
+
+        const color = `rgba(${imageData[0]}, ${imageData[1]}, ${imageData[2]}, ${imageData[3]})`;
+        newState[row][col] = color;
+      }
+    }
+
+    setCanvasStateStack((prevStack) => [...prevStack.slice(-9), newState]);
+    setCurrentStateIndex((prevIndex) => Math.min(prevIndex + 1, 9));
   };
 
   const restoreCanvasState = (state) => {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
-    const img = new Image();
+    const cellSize = canvas.width / width;
 
-    img.src = state;
-    img.onload = () => {
-      context.clearRect(0, 0, canvas.width, canvas.height);
-      context.drawImage(img, 0, 0);
-    };
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (let row = 0; row < state.length; row++) {
+      for (let col = 0; col < state[row].length; col++) {
+        const color = state[row][col];
+        context.fillStyle = color;
+        context.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
+      }
+    }
   };
 
   const handleUndo = () => {
-    console.log('undo');
-
-    if (canvasStateStack.length > 1) {
-      const prevState = canvasStateStack.slice(0, -1);
-      setCanvasStateStack(prevState);
-      restoreCanvasState(prevState[prevState.length - 2]);
+    if (currentStateIndex > 0) {
+      const newIndex = currentStateIndex - 1;
+      setCurrentStateIndex(newIndex);
+      restoreCanvasState(canvasStateStack[newIndex]);
     }
   };
 
   const handleRedo = () => {
-    console.log('redo');
-
-    if (currentCanvasState && canvasStateStack.length > 1) {
-      const nextState = canvasStateStack.slice(1);
-      setCanvasStateStack([currentCanvasState, ...nextState]);
-      restoreCanvasState(nextState[1]);
+    if (currentStateIndex < canvasStateStack.length - 1) {
+      const newIndex = currentStateIndex + 1;
+      setCurrentStateIndex(newIndex);
+      restoreCanvasState(canvasStateStack[newIndex]);
     }
   };
 
@@ -115,6 +131,7 @@ const PixelArtCanvas = () => {
 
   const endDrawing = () => {
     setDrawing(false);
+    saveCanvasState();
   };
 
   const draw = (event) => {
@@ -152,7 +169,10 @@ const PixelArtCanvas = () => {
     const today = new Date().toISOString().replace(/[-:.]/g, '');
     const fileName = `${today}JsTExport.png`;
 
-    exportComponentAsPNG(canvasRef, { fileName, html2CanvasOptions: {backgroundColor: null} });
+    exportComponentAsPNG(canvasRef, {
+      fileName,
+      html2CanvasOptions: { backgroundColor: null },
+    });
   };
 
   return (
@@ -181,7 +201,7 @@ const PixelArtCanvas = () => {
         />
       )}
 
-      <div className='canvas-container'>
+      <div className="canvas-container">
         <canvas
           ref={canvasRef}
           width={width * 20}
