@@ -163,3 +163,7 @@ body {
   background-color: transparent;
   color: white;
 }
+
+.canvas-container {
+  background-color: whitesmoke;
+}
