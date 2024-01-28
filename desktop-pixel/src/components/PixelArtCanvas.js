@@ -152,7 +152,7 @@ const PixelArtCanvas = () => {
     const today = new Date().toISOString().replace(/[-:.]/g, '');
     const fileName = `${today}JsTExport.png`;
 
-    exportComponentAsPNG(canvasRef, { fileName });
+    exportComponentAsPNG(canvasRef, { fileName, html2CanvasOptions: {backgroundColor: null} });
   };
 
   return (
