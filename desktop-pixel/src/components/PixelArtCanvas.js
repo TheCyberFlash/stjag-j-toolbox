@@ -20,12 +20,16 @@ const PixelArtCanvas = () => {
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
-  
+
     context.fillStyle = 'rgba(0, 0, 0, 0)';
     context.fillRect(0, 0, canvas.width, canvas.height);
-  
-    setCanvasStateStack([Array.from({ length: height }, () => Array.from({ length: width }, () => 'rgba(0, 0, 0, 0)'))]);
-  
+
+    setCanvasStateStack([
+      Array.from({ length: height }, () =>
+        Array.from({ length: width }, () => 'rgba(0, 0, 0, 0)'),
+      ),
+    ]);
+
     setCurrentStateIndex(0);
   }, [height, width]);
 
@@ -33,23 +37,26 @@ const PixelArtCanvas = () => {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
     const cellSize = canvas.width / width;
-  
+
     const newState = Array.from({ length: height }, () =>
       Array.from({ length: width }, () => 'rgba(0, 0, 0, 0)'),
     );
-  
+
     for (let row = 0; row < height; row++) {
       for (let col = 0; col < width; col++) {
         const x = col * cellSize;
         const y = row * cellSize;
         const imageData = context.getImageData(x, y, cellSize, cellSize).data;
-  
+
         const color = `rgba(${imageData[0]}, ${imageData[1]}, ${imageData[2]}, ${imageData[3]})`;
         newState[row][col] = color;
       }
     }
-  
-    setCanvasStateStack((prevStack) => [...prevStack.slice(0, currentStateIndex + 1), newState]);
+
+    setCanvasStateStack((prevStack) => [
+      ...prevStack.slice(0, currentStateIndex + 1),
+      newState,
+    ]);
     setCurrentStateIndex((prevIndex) => Math.min(prevIndex + 1, 9));
   };
 
@@ -212,7 +219,6 @@ const PixelArtCanvas = () => {
           onMouseDown={startDrawing}
           onMouseUp={endDrawing}
           onMouseMove={draw}
-          onMouseLeave={endDrawing}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
