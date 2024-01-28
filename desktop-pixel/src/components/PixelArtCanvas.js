@@ -20,10 +20,13 @@ const PixelArtCanvas = () => {
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
-
+  
     context.fillStyle = 'rgba(0, 0, 0, 0)';
     context.fillRect(0, 0, canvas.width, canvas.height);
-    saveCanvasState();
+  
+    setCanvasStateStack([Array.from({ length: height }, () => Array.from({ length: width }, () => 'rgba(0, 0, 0, 0)'))]);
+  
+    setCurrentStateIndex(0);
   }, [height, width]);
 
   const saveCanvasState = () => {
@@ -46,11 +49,8 @@ const PixelArtCanvas = () => {
       }
     }
   
-    setCanvasStateStack((prevStack) => {
-      const newStack = [...prevStack.slice(-9), newState];
-      setCurrentStateIndex((prevIndex) => Math.min(prevIndex + 1, 9));
-      return newStack;
-    });
+    setCanvasStateStack((prevStack) => [...prevStack.slice(0, currentStateIndex + 1), newState]);
+    setCurrentStateIndex((prevIndex) => Math.min(prevIndex + 1, 9));
   };
 
   const restoreCanvasState = (state) => {
