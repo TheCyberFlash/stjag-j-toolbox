@@ -181,7 +181,7 @@ const PixelArtCanvas = () => {
         />
       )}
 
-      <div>
+      <div className='canvas-container'>
         <canvas
           ref={canvasRef}
           width={width * 20}
