@@ -10,8 +10,6 @@ const ColorChange = ({
   return (
     <div className="color-select">
       {colorSelect && (
-        // <CirclePicker color={color} onChangeComplete={handleColorChange}/>
-        // <PhotoshopPicker color={color} onChangeComplete={handleColorChange}/>
         <SketchPicker color={color} onChangeComplete={handleColorChange} />
       )}
     </div>
