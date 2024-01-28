@@ -37,7 +37,7 @@ const Toolbar = ({
       <button className="toolbar-button" id="clear-canvas" onClick={onReset}>
         <FontAwesomeIcon icon={faTrash} />
       </button>
-      <button className="toolbar-button" id="export-png" onCanPlay={onExport}>
+      <button className="toolbar-button" id="export-png" onClick={onExport}>
         <FontAwesomeIcon icon={faImage} />
       </button>
     </div>
