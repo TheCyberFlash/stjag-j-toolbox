@@ -189,6 +189,7 @@ const PixelArtCanvas = () => {
           onMouseDown={startDrawing}
           onMouseUp={endDrawing}
           onMouseMove={draw}
+          onMouseLeave={endDrawing}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
