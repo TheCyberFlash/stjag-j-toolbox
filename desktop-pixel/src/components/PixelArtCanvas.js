@@ -145,7 +145,7 @@ const PixelArtCanvas = () => {
   };
 
   return (
-    <div>
+    <div id="editor">
       <Toolbar
         onResize={handleResize}
         onColorSelect={handleColorSelect}
