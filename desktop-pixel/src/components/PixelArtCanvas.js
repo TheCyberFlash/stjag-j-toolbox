@@ -13,13 +13,13 @@ const PixelArtCanvas = () => {
   const [currentCanvasState, setCurrentCanvasState] = useState(null);
   const [resizing, setResizing] = useState(false);
   const [colorSelecting, setColorSelecting] = useState(false);
-  const [color, setColor] = useState('#fff');
+  const [color, setColor] = useState('#FF0000');
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
 
-    context.fillStyle = 'white';
+    context.fillStyle = 'rgba(0, 0, 0, 0)';
     context.fillRect(0, 0, canvas.width, canvas.height);
     saveCanvasState();
   }, [height, width]);
@@ -27,8 +27,11 @@ const PixelArtCanvas = () => {
   const saveCanvasState = () => {
     const canvas = canvasRef.current;
     const snapshot = canvas.toDataURL('image/png');
-    setCanvasStateStack((prevStack) => [...prevStack, snapshot]);
-    setCurrentCanvasState(snapshot);
+
+    const newStack = canvasStateStack.slice(0, currentCanvasState + 1);
+
+    setCanvasStateStack([...newStack, snapshot]);
+    setCurrentCanvasState(newStack.length);
   };
 
   const restoreCanvasState = (state) => {
@@ -44,6 +47,8 @@ const PixelArtCanvas = () => {
   };
 
   const handleUndo = () => {
+    console.log('undo');
+
     if (canvasStateStack.length > 1) {
       const prevState = canvasStateStack.slice(0, -1);
       setCanvasStateStack(prevState);
@@ -52,6 +57,8 @@ const PixelArtCanvas = () => {
   };
 
   const handleRedo = () => {
+    console.log('redo');
+
     if (currentCanvasState && canvasStateStack.length > 1) {
       const nextState = canvasStateStack.slice(1);
       setCanvasStateStack([currentCanvasState, ...nextState]);
@@ -60,8 +67,12 @@ const PixelArtCanvas = () => {
   };
 
   const handleReset = () => {
-    setCanvasStateStack([]);
-    restoreCanvasState(canvasStateStack[0]);
+    console.log('reset');
+    const canvas = canvasRef.current;
+    const context = canvas.getContext('2d');
+
+    context.fillStyle = 'rgba(0, 0, 0, 0)';
+    context.clearRect(0, 0, canvas.width, canvas.height);
   };
 
   const handleResize = () => {
