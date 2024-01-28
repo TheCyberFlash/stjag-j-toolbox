@@ -1,10 +1,10 @@
 import React from "react";
-import Editor from "./components/Editor";
+import PixelArtCanvas from "./components/PixelArtCanvas";
 
 const App = () => {
   return (
     <div className="App">
-      <Editor />
+      <PixelArtCanvas />
     </div> 
   )}
 
