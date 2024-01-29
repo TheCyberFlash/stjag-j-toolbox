@@ -145,14 +145,18 @@ const PixelArtCanvas = () => {
     draw(event);
   };
 
+  const continueDrawing = (event) => {
+    if (drawing) {
+      draw(event);
+    }
+  };
+
   const endDrawing = () => {
     setDrawing(false);
     saveCanvasState();
   };
 
   const draw = (event) => {
-    if (!drawing) return;
-
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
 
@@ -230,7 +234,7 @@ const PixelArtCanvas = () => {
           height={height * 20}
           onMouseDown={startDrawing}
           onMouseUp={endDrawing}
-          onMouseMove={draw}
+          onMouseMove={continueDrawing}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
