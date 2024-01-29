@@ -9,7 +9,6 @@ const PixelArtCanvas = () => {
   const [width, setWidth] = useState(16);
   const [height, setHeight] = useState(16);
   const [drawing, setDrawing] = useState(false);
-  const [currentCanvasState, setCurrentCanvasState] = useState(null);
   const [resizing, setResizing] = useState(false);
   const [colorSelecting, setColorSelecting] = useState(false);
   const [color, setColor] = useState('#FF0000');
