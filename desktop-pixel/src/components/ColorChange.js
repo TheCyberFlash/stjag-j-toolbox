@@ -1,11 +1,7 @@
 import React from 'react';
 import { SketchPicker } from 'react-color';
 
-const ColorChange = ({
-  color,
-  colorSelect,
-  handleColorChange,
-}) => {
+const ColorChange = ({ color, colorSelect, handleColorChange }) => {
   return (
     <div className="color-select">
       {colorSelect && (
