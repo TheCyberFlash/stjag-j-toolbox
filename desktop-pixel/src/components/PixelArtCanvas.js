@@ -9,6 +9,7 @@ const PixelArtCanvas = () => {
   const [width, setWidth] = useState(16);
   const [height, setHeight] = useState(16);
   const [drawing, setDrawing] = useState(false);
+  const [erasing, setErasing] = useState(false);
   const [resizing, setResizing] = useState(false);
   const [colorSelecting, setColorSelecting] = useState(false);
   const [color, setColor] = useState('#FF0000');
@@ -108,6 +109,10 @@ const PixelArtCanvas = () => {
     }
   };
 
+  const handleErase = () => {
+    setErasing(!erasing);
+  };
+
   const handleResizeSubmit = (newWidth, newHeight) => {
     setResizing(false);
 
@@ -158,8 +163,12 @@ const PixelArtCanvas = () => {
     const col = Math.floor(x / cellSize);
     const row = Math.floor(y / cellSize);
 
-    context.fillStyle = color;
-    context.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
+    if (erasing) {
+      context.clearRect(col * cellSize, row * cellSize, cellSize, cellSize);
+    } else {
+      context.fillStyle = color;
+      context.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
+    }
   };
 
   const handleTouchStart = (event) => {
@@ -193,6 +202,7 @@ const PixelArtCanvas = () => {
         onRedo={handleRedo}
         onReset={handleReset}
         onExport={handleSaveImage}
+        onErase={handleErase}
       />
       {resizing && (
         <ResizeCanvas
