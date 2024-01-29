@@ -205,6 +205,7 @@ const PixelArtCanvas = () => {
         onReset={handleReset}
         onExport={handleSaveImage}
         onErase={handleErase}
+        erasing={erasing}
       />
       {resizing && (
         <ResizeCanvas
