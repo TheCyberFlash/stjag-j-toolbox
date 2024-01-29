@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faExpand, // - Resize Canvas
   faPalette, // - Change Color
+  faEraser, // - Eraser
   faUndo, // - Undo
   faRedo, // - Redo
   faTrash, // - Clear Canvas
@@ -12,6 +13,7 @@ import {
 const Toolbar = ({
   onResize,
   onColorSelect,
+  onErase,
   onUndo,
   onRedo,
   onReset,
@@ -22,11 +24,11 @@ const Toolbar = ({
       <button className="toolbar-button" id="resize-canvas" onClick={onResize}>
         <FontAwesomeIcon icon={faExpand} />
       </button>
-      <button
-        className="toolbar-button"
-        id="change-color"
-        onClick={onColorSelect}>
+      <button className="toolbar-button" id="change-color" onClick={onColorSelect}>
         <FontAwesomeIcon icon={faPalette} />
+      </button>
+      <button className="toolbar-button" id="eraser" onClick={onErase}>
+        <FontAwesomeIcon icon={faEraser} />
       </button>
       <button className="toolbar-button" id="undo" onClick={onUndo}>
         <FontAwesomeIcon icon={faUndo} />
