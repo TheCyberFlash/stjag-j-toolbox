@@ -18,6 +18,18 @@ const PixelArtCanvas = () => {
   const [currentStateIndex, setCurrentStateIndex] = useState(-1);
 
   useEffect(() => {
+    const preventDefault = (event) => {
+      event.preventDefault();
+    };
+
+    window.addEventListener('touchmove', preventDefault, { passive: false });
+
+    return () => {
+      window.removeEventListener('touchmove', preventDefault);
+    };
+  }, []);
+
+  useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
 
