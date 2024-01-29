@@ -131,6 +131,11 @@ body {
   border-radius: 7px;
 }
 
+.tb-active {
+  background-color: rgb(87, 75, 75);
+  color: ghostwhite;
+}
+
 .toolbar-button:hover {
   background-color: rgb(87, 75, 75);
   color: ghostwhite;
