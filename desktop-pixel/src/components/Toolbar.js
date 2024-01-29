@@ -21,7 +21,7 @@ const Toolbar = ({
   erasing,
 }) => {
 
-  const eraserActiveClass = erasing ? "toolbar-button-active" : "toolbar-button";
+  const eraserActiveClass = erasing ? "toolbar-button tb-active" : "toolbar-button";
   return (
     <div className="toolbar">
       <button className="toolbar-button" id="resize-canvas" onClick={onResize}>
