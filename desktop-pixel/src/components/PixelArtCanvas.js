@@ -115,6 +115,8 @@ const PixelArtCanvas = () => {
 
   const handleResizeSubmit = (newWidth, newHeight) => {
     setResizing(false);
+    setWidth(newWidth);
+    setHeight(newHeight);
 
     const canvas = canvasRef.current;
     canvas.width = newWidth * 20;
