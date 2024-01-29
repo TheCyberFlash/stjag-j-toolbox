@@ -18,7 +18,10 @@ const Toolbar = ({
   onRedo,
   onReset,
   onExport,
+  erasing,
 }) => {
+
+  const eraserActiveClass = erasing ? "toolbar-button-active" : "toolbar-button";
   return (
     <div className="toolbar">
       <button className="toolbar-button" id="resize-canvas" onClick={onResize}>
@@ -27,7 +30,7 @@ const Toolbar = ({
       <button className="toolbar-button" id="change-color" onClick={onColorSelect}>
         <FontAwesomeIcon icon={faPalette} />
       </button>
-      <button className="toolbar-button" id="eraser" onClick={onErase}>
+      <button className={eraserActiveClass} id="eraser" onClick={onErase}>
         <FontAwesomeIcon icon={faEraser} />
       </button>
       <button className="toolbar-button" id="undo" onClick={onUndo}>
