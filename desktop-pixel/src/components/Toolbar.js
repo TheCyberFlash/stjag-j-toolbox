@@ -20,14 +20,18 @@ const Toolbar = ({
   onExport,
   erasing,
 }) => {
-
-  const eraserActiveClass = erasing ? "toolbar-button tb-active" : "toolbar-button";
+  const eraserActiveClass = erasing
+    ? 'toolbar-button tb-active'
+    : 'toolbar-button';
   return (
     <div className="toolbar">
       <button className="toolbar-button" id="resize-canvas" onClick={onResize}>
         <FontAwesomeIcon icon={faExpand} />
       </button>
-      <button className="toolbar-button" id="change-color" onClick={onColorSelect}>
+      <button
+        className="toolbar-button"
+        id="change-color"
+        onClick={onColorSelect}>
         <FontAwesomeIcon icon={faPalette} />
       </button>
       <button className={eraserActiveClass} id="eraser" onClick={onErase}>
