@@ -1,10 +1,9 @@
 import React from 'react';
-import { CirclePicker, PhotoshopPicker, SketchPicker } from 'react-color';
+import { SketchPicker } from 'react-color';
 
 const ColorChange = ({
   color,
   colorSelect,
-  setColorSelect,
   handleColorChange,
 }) => {
   return (
