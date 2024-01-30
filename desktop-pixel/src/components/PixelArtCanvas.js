@@ -31,10 +31,7 @@ const PixelArtCanvas = () => {
   }, []);
 
   useEffect(() => {
-    const canvasContainer = document.querySelector('.canvas-container');
-    if (canvasContainer) {
-      canvasContainer.style.height = `${height * 20}px`;
-    }
+    setCanvasContainerHeight();
   }, [height]);
 
   useEffect(() => {
@@ -53,6 +50,13 @@ const PixelArtCanvas = () => {
 
     setCurrentStateIndex(0);
   }, [height, width, filling]);
+
+  const setCanvasContainerHeight = () => {
+    const canvasContainer = document.querySelector('.canvas-container');
+    if (canvasContainer) {
+      canvasContainer.style.height = `${height * 20}px`;
+    }
+  };
 
   const saveCanvasState = () => {
     const canvas = canvasRef.current;
