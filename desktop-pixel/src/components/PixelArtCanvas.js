@@ -10,6 +10,7 @@ const PixelArtCanvas = () => {
   const [height, setHeight] = useState(16);
   const [drawing, setDrawing] = useState(false);
   const [erasing, setErasing] = useState(false);
+  const [filling, setFilling] = useState(false); 
   const [resizing, setResizing] = useState(false);
   const [colorSelecting, setColorSelecting] = useState(false);
   const [color, setColor] = useState('#FF0000');
@@ -32,18 +33,19 @@ const PixelArtCanvas = () => {
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
+    const fillStyle = filling ? color : 'rgba(0, 0, 0, 0)';
 
-    context.fillStyle = 'rgba(0, 0, 0, 0)';
+    context.fillStyle = fillStyle;
     context.fillRect(0, 0, canvas.width, canvas.height);
 
     setCanvasStateStack([
       Array.from({ length: height }, () =>
-        Array.from({ length: width }, () => 'rgba(0, 0, 0, 0)'),
+        Array.from({ length: width }, () => fillStyle),
       ),
     ]);
 
     setCurrentStateIndex(0);
-  }, [height, width]);
+  }, [height, width, filling]);
 
   const saveCanvasState = () => {
     const canvas = canvasRef.current;
@@ -211,6 +213,10 @@ const PixelArtCanvas = () => {
     });
   };
 
+  const handleFill = () => {
+    setFilling(!filling);
+  }
+
   return (
     <div id="editor">
       <Toolbar
@@ -218,6 +224,7 @@ const PixelArtCanvas = () => {
         onColorSelect={handleColorSelect}
         onUndo={handleUndo}
         onRedo={handleRedo}
+        onFill={handleFill}
         onReset={handleReset}
         onExport={handleSaveImage}
         onErase={handleErase}
