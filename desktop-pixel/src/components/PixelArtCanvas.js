@@ -31,6 +31,13 @@ const PixelArtCanvas = () => {
   }, []);
 
   useEffect(() => {
+    const canvasContainer = document.querySelector('.canvas-container');
+    if (canvasContainer) {
+      canvasContainer.style.height = `${height * 20}px`;
+    }
+  }, [height]);
+
+  useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
     const fillStyle = filling ? color : 'rgba(0, 0, 0, 0)';
