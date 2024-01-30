@@ -8,7 +8,7 @@ import {
   faRedo, // - Redo
   faTrash, // - Clear Canvas
   faImage, // - Export as PNG
-  faFill // - Fill
+  faFill, // - Fill
 } from '@fortawesome/free-solid-svg-icons';
 
 const Toolbar = ({
@@ -27,31 +27,60 @@ const Toolbar = ({
     : 'toolbar-button';
   return (
     <div className="toolbar">
-      <button className="toolbar-button" id="resize-canvas" onClick={onResize}>
+      <button
+        className="toolbar-button"
+        id="resize-canvas"
+        onClick={onResize}
+        title="Resize Canvas">
         <FontAwesomeIcon icon={faExpand} />
       </button>
       <button
         className="toolbar-button"
         id="change-color"
-        onClick={onColorSelect}>
+        onClick={onColorSelect}
+        title="Change Color">
         <FontAwesomeIcon icon={faPalette} />
       </button>
-      <button className={eraserActiveClass} id="eraser" onClick={onErase}>
+      <button
+        className={eraserActiveClass}
+        id="eraser"
+        onClick={onErase}
+        title="Eraser">
         <FontAwesomeIcon icon={faEraser} />
       </button>
-      <button className="toolbar-button" id="undo" onClick={onUndo}>
+      <button
+        className="toolbar-button"
+        id="undo"
+        onClick={onUndo}
+        title="Undo">
         <FontAwesomeIcon icon={faUndo} />
       </button>
-      <button className="toolbar-button" id="redo" onClick={onRedo}>
+      <button
+        className="toolbar-button"
+        id="redo"
+        onClick={onRedo}
+        title="Redo">
         <FontAwesomeIcon icon={faRedo} />
       </button>
-      <button className="toolbar-button" id="fill" onClick={onFill}>
+      <button
+        className="toolbar-button"
+        id="fill"
+        onClick={onFill}
+        title="Fill">
         <FontAwesomeIcon icon={faFill} />
       </button>
-      <button className="toolbar-button" id="clear-canvas" onClick={onReset}>
+      <button
+        className="toolbar-button"
+        id="clear-canvas"
+        onClick={onReset}
+        title="Clear Canvas">
         <FontAwesomeIcon icon={faTrash} />
       </button>
-      <button className="toolbar-button" id="export-png" onClick={onExport}>
+      <button
+        className="toolbar-button"
+        id="export-png"
+        onClick={onExport}
+        title="Export as PNG">
         <FontAwesomeIcon icon={faImage} />
       </button>
     </div>
