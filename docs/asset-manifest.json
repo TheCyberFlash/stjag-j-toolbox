@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/stjag-j-toolbox/static/css/main.e5943aff.css",
-    "main.js": "/stjag-j-toolbox/static/js/main.3e786d35.js",
+    "main.js": "/stjag-j-toolbox/static/js/main.dd0b523b.js",
     "index.html": "/stjag-j-toolbox/index.html",
     "main.e5943aff.css.map": "/stjag-j-toolbox/static/css/main.e5943aff.css.map",
-    "main.3e786d35.js.map": "/stjag-j-toolbox/static/js/main.3e786d35.js.map"
+    "main.dd0b523b.js.map": "/stjag-j-toolbox/static/js/main.dd0b523b.js.map"
   },
   "entrypoints": [
     "static/css/main.e5943aff.css",
-    "static/js/main.3e786d35.js"
+    "static/js/main.dd0b523b.js"
   ]
 }
