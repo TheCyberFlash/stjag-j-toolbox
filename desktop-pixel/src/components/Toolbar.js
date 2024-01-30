@@ -8,6 +8,7 @@ import {
   faRedo, // - Redo
   faTrash, // - Clear Canvas
   faImage, // - Export as PNG
+  faFill // - Fill
 } from '@fortawesome/free-solid-svg-icons';
 
 const Toolbar = ({
@@ -16,6 +17,7 @@ const Toolbar = ({
   onErase,
   onUndo,
   onRedo,
+  onFill,
   onReset,
   onExport,
   erasing,
@@ -42,6 +44,9 @@ const Toolbar = ({
       </button>
       <button className="toolbar-button" id="redo" onClick={onRedo}>
         <FontAwesomeIcon icon={faRedo} />
+      </button>
+      <button className="toolbar-button" id="fill" onClick={onFill}>
+        <FontAwesomeIcon icon={faFill} />
       </button>
       <button className="toolbar-button" id="clear-canvas" onClick={onReset}>
         <FontAwesomeIcon icon={faTrash} />
