@@ -10,7 +10,7 @@ const PixelArtCanvas = () => {
   const [height, setHeight] = useState(16);
   const [drawing, setDrawing] = useState(false);
   const [erasing, setErasing] = useState(false);
-  const [filling, setFilling] = useState(false); 
+  const [filling, setFilling] = useState(false);
   const [resizing, setResizing] = useState(false);
   const [colorSelecting, setColorSelecting] = useState(false);
   const [color, setColor] = useState('#FF0000');
@@ -215,7 +215,7 @@ const PixelArtCanvas = () => {
 
   const handleFill = () => {
     setFilling(!filling);
-  }
+  };
 
   return (
     <div id="editor">
